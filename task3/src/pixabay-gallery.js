@@ -1,32 +1,39 @@
-import iziToast from 'https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js';
-import SimpleLightbox from 'https://cdn.jsdelivr.net/npm/simplelightbox/dist/simple-lightbox.esm.min.js';
-
 const API_KEY = '50417684-17ed75f37e39511e863ef1e3d';
 const form = document.getElementById('search-form');
 const input = document.getElementById('search-input');
 const gallery = document.getElementById('gallery');
 const loader = document.getElementById('loader');
+
 let lightbox = new SimpleLightbox('.gallery a');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const query = input.value.trim();
-  if (!query) return iziToast.warning({ message: 'Please enter a search query.', position: 'topRight' });
+
+  if (!query) {
+    iziToast.warning({
+      message: 'Please enter a search query.',
+      position: 'topRight',
+    });
+    return;
+  }
 
   gallery.innerHTML = '';
   loader.classList.remove('hidden');
 
   try {
-    const response = await fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true`);
+    const url = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true`;
+    const response = await fetch(url);
     const data = await response.json();
 
     loader.classList.add('hidden');
 
     if (data.hits.length === 0) {
-      return iziToast.error({
+      iziToast.error({
         message: 'Sorry, there are no images matching your search query. Please, try again!',
         position: 'topRight',
       });
+      return;
     }
 
     const markup = data.hits.map(hit => `
@@ -47,6 +54,9 @@ form.addEventListener('submit', async (e) => {
     lightbox.refresh();
   } catch (err) {
     loader.classList.add('hidden');
-    iziToast.error({ message: 'Fetch error. Please try again later.', position: 'topRight' });
+    iziToast.error({
+      message: 'Fetch error. Please try again later.',
+      position: 'topRight',
+    });
   }
 });

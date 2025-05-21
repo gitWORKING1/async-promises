@@ -2,20 +2,34 @@ body {
   font-family: sans-serif;
   background: #f8f9fa;
   margin: 0;
-  padding: 2rem;
+  padding: 0;
 }
 
 form {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 0 20px;
 }
 
 input {
-  padding: 10px;
-  width: 300px;
+  padding: 10px 16px;
+  width: 320px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:hover {
+  border-color: #000;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 button {
@@ -23,22 +37,37 @@ button {
   background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+button:active {
+  background: #1e40af;
 }
 
 .gallery {
+  padding: 0 40px 40px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  gap: 24px;
 }
 
 .photo-card {
   background: white;
-  border-radius: 5px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.photo-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .photo-card img {
@@ -49,16 +78,26 @@ button {
 .stats {
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem;
+  padding: 0.75rem;
   font-size: 14px;
+  background: #fff;
+}
+
+#loader {
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid #3b82f6;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+  margin: 40px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .hidden {
   display: none;
-}
-
-#loader {
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
 }
