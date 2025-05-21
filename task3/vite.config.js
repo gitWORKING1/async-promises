@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/async-promises/task3/',
+  base: '/async-promises/',
 });
